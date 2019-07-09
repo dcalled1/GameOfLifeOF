@@ -1,10 +1,13 @@
 #pragma once
 
 #include "ofMain.h"
+#include <set>
 
 const int h = 600;
 const int w = 900;
 const int resol = 10;
+
+
 
 struct Cell {
 	bool state;
@@ -35,4 +38,9 @@ class ofApp : public ofBaseApp{
 
 	private:	
 		int countNei(int x, int y);
+		bool contains(bool b, int c);
+
+		int live[2] {2,3};
+		int birth[1] {3};
+		
 };

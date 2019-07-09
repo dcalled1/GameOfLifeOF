@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-	ofSetFrameRate(20);
+	ofSetFrameRate(15);
 
 	for (int i = 0; i < w/resol; i++) {
 		for (int j = 0; j < h/resol; j++) {
@@ -21,11 +21,11 @@ void ofApp::update(){
 		for (int j = 0; j < h / resol; j++) {
 			int neig = countNei(i, j);
 			if (cells[i][j].state) {
-				if (neig != 2 && neig != 3)
+				if (!contains(false, neig))
 					cells[i][j].next = false;
 			}
 			else {
-				if (neig == 3)
+				if (contains(true, neig))
 					cells[i][j].next = true;
 			}
 		}
@@ -68,6 +68,20 @@ int ofApp::countNei(int x, int y) {
 	}
 	
 	return sum - cells[x][y].state;
+}
+
+bool ofApp::contains(bool b, int c) {
+	if (b) {
+		for (int i = 0; i < sizeof(birth) / sizeof(*birth); i++) {
+			if (birth[i] == c) return true;
+		}
+	}
+	else {
+		for (int i = 0; i < sizeof(live) / sizeof(*live); i++) {
+			if (live[i] == c) return true;
+		}
+	}
+	return false;
 }
 
 //--------------------------------------------------------------
